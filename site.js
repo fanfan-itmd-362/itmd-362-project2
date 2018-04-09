@@ -108,11 +108,11 @@ jQuery(function($) {
       selected.push(seat);
     });
     $('#summary').empty();
-    $('#summary').append(selected.join(","));
+    $('#summary').append(selected.join(", "));
     $('#money').empty();
     total = selected.length * 12;
     $('#money').append('$' + total);
-    Cookies.set('seats', selected.join(","));
+    Cookies.set('seats', selected.join(", "));
     Cookies.set('amount', total);
     e.preventDefault();
   });
@@ -189,7 +189,6 @@ jQuery(function($) {
     } else {
       creditCard.cardType = cardValidation(creditCard.number);
       Cookies.set('cardType', creditCard.cardType);
-      Cookies.set('lastFourCard', creditCard.number.substring(12, 16));
     }
   });
   $('#expdate').on('focus', function() {
@@ -232,18 +231,14 @@ jQuery(function($) {
     }
   });
   $('#form-card').on("submit", function(e) {
-    var time = Date.now();
-    var orderNumber = Math.round(time / 10000);
     if (formValidation() === true) {
       console.log("Success");
-      $('#form-content').remove();
-      $('#ticket').replaceWith('<h2>Your Confirmation</h2>');
-      $('.ticket-info.conformation').prepend('<li><h3>Order number: ' + orderNumber + '</h3></li>');
-      $('.ticket-info.conformation').append('<li>Paid By: ' + Cookies.get('cardType') + ' ' + Cookies.get('lastFourCard') + '</li>');
-      $('.ticket-info.conformation').append('<li class="barcode">' + orderNumber + '</li>');
-      $('.ticket-info.conformation').append('<li>Please check your email for your ticket information or print out this page.</li>');
-      $('#previouspage').remove();
-      $('#back').append('<a href="../index.html" id="previouspage">Back Home</a>');
+      $('#post-info').append('<li><input name="event" type="hidden" value="' + Cookies.get('event') + '" /></li>');
+      $('#post-info').append('<li><input name="provider" type="hidden" value="' + Cookies.get('provider') + '" /></li>');
+      $('#post-info').append('<li><input name="time" type="hidden" value="' + Cookies.get('time') + '" /></li>');
+      $('#post-info').append('<li><input name="seats" type="hidden" value="' + Cookies.get('seats') + '" /></li>');
+      $('#post-info').append('<li><input name="cardType" type="hidden" value="' + Cookies.get('cardType') + '" /></li>');
+      return true;
     }
     e.preventDefault();
   });
