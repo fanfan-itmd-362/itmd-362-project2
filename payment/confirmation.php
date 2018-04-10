@@ -19,6 +19,7 @@ $cardType = $_REQUEST['cardType'];
   <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no" />
   <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,700" rel="stylesheet" />
   <link rel="stylesheet" media="screen" href="../screen.css" />
+  <link rel="stylesheet" media="print" href="print.css" />
   <link rel="stylesheet" href="#//basehold.it/22" />
 </head>
 
