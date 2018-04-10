@@ -39,7 +39,7 @@ $cardType = $_REQUEST['cardType'];
         <li class="padding">Seat(s): <?php echo $seats ?></li>
         <li class="total">Total: $ <?php echo $amount ?></li>
         <li class="padding"><?php echo "Paid by: " . $cardType . " " . substr($cardNumber, -4) ?></li>
-        <li class="qrcode"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=<?php echo $ordernumber ?>" /></li>
+        <li class="qrcode"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&amp;data=<?php echo $ordernumber ?>" /></li>
         <li>Please check your email for your ticket information or print out this page.</li>
       </ol>
     </section>
