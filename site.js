@@ -31,7 +31,8 @@ jQuery(function($) {
     email: /.+@.+/,
     name: /^[a-zA-Z\s]+$/,
     number: /^\d{16}$/,
-    exp: /^\d{4}$/
+    exp: /^\d{4}$/,
+    exp1: /^\d{2}[+-/]\d{2}$/
   };
   var creditCard = {
     email: null,
@@ -206,11 +207,11 @@ jQuery(function($) {
     } else {
       $('#input-expdate label').removeClass('red');
     }
-    if (!reg.exp.test(creditCard.exp)) {
+    if (!reg.exp.test(creditCard.exp) && !reg.exp1.test(creditCard.exp)) {
       $('#expdate').addClass('red');
       validate.exp = false;
     } else {
-      expValidation(creditCard.exp);
+      expProcessor(creditCard.exp);
     }
   });
   $('#billzip').on('focus', function() {
@@ -274,6 +275,22 @@ jQuery(function($) {
       cardType = "unknown";
       validate.number = false;
       return cardType;
+    }
+  }
+
+  // Process expiration date
+  function expProcessor(expDate) {
+    var exp = {
+      raw: expDate.split(expDate.substring(2, 3))
+    };
+    if (reg.exp.test(creditCard.exp)) {
+      expValidation(expDate);
+    } else if (reg.exp1.test(creditCard.exp)) {
+      expValidation(exp.raw[0] + exp.raw[1]);
+    }
+    if (!reg.exp.test(creditCard.exp) && !reg.exp1.test(creditCard.exp)) {
+      $('#expdate').addClass('red');
+      validate.exp = false;
     }
   }
 
